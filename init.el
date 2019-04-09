@@ -62,3 +62,5 @@
 (require 'yasnippet)
 (yas-global-mode 1)
 (setq yas-triggers-in-field t)
+(setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+
