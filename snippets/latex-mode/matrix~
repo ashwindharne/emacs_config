@@ -1,0 +1,22 @@
+# -*- mode: snippet -*-
+# contributor: Ashwin Dharne <ashwindharne@gmail.com>
+# name: generate mxn matrix
+# key: mat
+# type: command
+# --
+(let ((yas-good-grace nil)
+     (rows (read-number "Rows?"))
+     (cols (read-number "Columns?"))
+     (type (read-string "Matrix Type?")))
+  (yas-expand-snippet
+    (concat "\\begin{" type "matrix}\n"
+    "\t"
+    (mapconcat
+      (lambda (num)
+        (cond
+	  ((= (% num cols) 1) (format "\t$%d " num))
+	  ((= (% num cols) 0) (format "& $%d \\\\\\\\ \n" num))
+	  (t (format "& $%d " num))))
+      (number-sequence 1 (* rows cols) nil)
+      "")
+    "\\end{" type "matrix}\n$0")))

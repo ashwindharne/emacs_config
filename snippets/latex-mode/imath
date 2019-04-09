@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: Ashwin Dharne <ashwindharne@gmail.com>
+# key: im
+# group: math
+# name: inlinemath \( ... \)
+# --
+\\($1\\)
