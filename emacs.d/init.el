@@ -6,38 +6,15 @@
 (package-initialize)
 (require 'package)
 (add-to-list 'package-archives
-  '("melpa" . "http://melpa.milkbox.net/packages/") t)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(custom-enabled-themes (quote (tsdh-dark)))
- '(package-selected-packages
-   (quote
-    (yasnippet-snippets yasnippet latex-preview-pane auctex))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+     '("melpa" . "http://melpa.org/packages/") t)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
-
-(require 'use-package)
 (setq use-package-always-ensure t)
 
-; then define packages you use
-(use-package latex-preview-pane)
-(use-package yasnippet)
+(setq custom-file "~/.emacs.d/lisp/custom.el")
+(load custom-file)
 
 ;;; Default Font
 (set-face-attribute 'default nil
@@ -55,22 +32,22 @@
 ;;; Fringe color to background color, provides separator between code and line numbers
 (set-face-attribute 'fringe nil :background nil)
 
-;;; Latex path
-(setq exec-path (append exec-path '("/usr/local/texlive/2018/bin/x86_64-linux/")))
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/texlive/2018/bin/x86_64-linux/"))
 ;;; org-mode latex fragment size
 (require 'org)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 3.0))
 
 ;;; LaTex Options
+(setq exec-path (append exec-path '("/usr/local/texlive/2018/bin/x86_64-linux/")))
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/texlive/2018/bin/x86_64-linux/"))
 (setq TeX-auto-save t)
 (setq TeX-PDF-mode t)
 (setq TeX-parse-self t)
 (setq TeX-show-compilation t)
+(use-package latex-preview-pane)
 (latex-preview-pane-enable)
 
 ;;; Yasnippet
-(require 'yasnippet)
+(use-package yasnippet)
 (yas-global-mode 1)
 (setq yas-triggers-in-field t)
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
@@ -83,3 +60,12 @@
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "pandoc"))
+
+(electric-pair-mode 1)
+(use-package magit)
+
+(use-package sublimity)
+(require 'sublimity-scroll)
+(setq sublimity-scroll-weight 10
+      sublimity-scroll-drift-length 10)
+(sublimity-mode 1)
