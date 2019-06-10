@@ -3,7 +3,7 @@
 
 dir=~/.dotfiles
 old_dir=~/.dotfiles_backup
-files="emacs.d"
+files="emacs.d bash_profile"
 
 echo -n "Creating $old_dir to backup existing dotfiles in ~/ ... "
 mkdir -p $old_dir

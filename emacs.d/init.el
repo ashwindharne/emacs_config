@@ -27,6 +27,12 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 
+(use-package exec-path-from-shell)
+(exec-path-from-shell-initialize)
+;;; Flycheck install
+(use-package flycheck)
+(global-flycheck-mode)
+
 ;;; Line number mode
 (global-linum-mode)
 ;;; Fringe color to background color, provides separator between code and line numbers
@@ -69,3 +75,11 @@
 (setq sublimity-scroll-weight 10
       sublimity-scroll-drift-length 10)
 (sublimity-mode 1)
+
+(use-package haskell-mode)
+(use-package flycheck-haskell)
+(add-hook 'haskell-mode-hook #'flycheck-haskell-setup)
+
+(use-package rust-mode)
+(use-package flycheck-rust)
+
