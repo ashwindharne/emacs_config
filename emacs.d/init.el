@@ -43,8 +43,8 @@
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 3.0))
 
 ;;; LaTex Options
-(setq exec-path (append exec-path '("/usr/local/texlive/2018/bin/x86_64-linux/")))
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/texlive/2018/bin/x86_64-linux/"))
+(setq exec-path (append exec-path '("/Library/TeX/texbin")))
+(setenv "PATH" (concat (getenv "PATH") "/Library/TeX/texbin"))
 (setq TeX-auto-save t)
 (setq TeX-PDF-mode t)
 (setq TeX-parse-self t)
@@ -70,16 +70,18 @@
 (electric-pair-mode 1)
 (use-package magit)
 
-(use-package sublimity)
-(require 'sublimity-scroll)
-(setq sublimity-scroll-weight 10
-      sublimity-scroll-drift-length 10)
-(sublimity-mode 1)
-
 (use-package haskell-mode)
 (use-package flycheck-haskell)
 (add-hook 'haskell-mode-hook #'flycheck-haskell-setup)
 
 (use-package rust-mode)
 (use-package flycheck-rust)
+
+;;; neotree
+(use-package neotree)
+(global-set-key [f8] 'neotree-toggle)
+
+;;; ivy
+(use-package ivy)
+(ivy-mode 1)
 
