@@ -1,13 +1,6 @@
 zmodload zsh/zprof
 
-alias mnt-lnxsrv='sshfs dharne@lnxsrv09.seas.ucla.edu:/u/cs/ugrad/dharne/ ~/Desktop/seasnet/ -o auto_cache,reconnect,defer_permissions,noappledouble,volname=lnxsrv'
-alias l2='tree -L 2'
-alias l3='tree -L 3'
-alias l4='tree -L 4'
-alias la='ls -laG'
-
-
-export PATH="/usr/local/bin:$HOME/.cargo/bin:$PATH"
+source ~/.zsh-config/aliases.sh
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -24,13 +17,12 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+export PATH="/usr/local/bin:$HOME/.cargo/bin:/opt/local/bin:/opt/local/sbin:$PATH"
 
-##
-# Your previous /Users/ashwindharne/.bash_profile file was backed up as /Users/ashwindharne/.bash_profile.macports-saved_2019-07-02_at_21:07:31
-##
+### Added by Zplugin's installer
+source '/Users/ashwindharne/.zplugin/bin/zplugin.zsh'
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+### End of Zplugin's installer chunk
 
-# MacPorts Installer addition on 2019-07-02_at_21:07:31: adding an appropriate PATH variable for use with MacPorts.
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-# Finished adapting your PATH environment variable for use with MacPorts.
-
-zprof
+source ~/.zsh-config/zplugin-init.zsh

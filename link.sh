@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 dir=~/.dotfiles
 old_dir=~/.dotfiles_backup
 files="emacs.d bash_profile"
