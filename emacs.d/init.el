@@ -8,7 +8,7 @@
 (package-initialize)
 (require 'package)
 (add-to-list 'package-archives
-     '("melpa" . "http://melpa.org/packages/") t)
+	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -34,7 +34,6 @@
 (exec-path-from-shell-initialize)
 ;;; Flycheck install
 (use-package flycheck)
-(global-flycheck-mode)
 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 
 ;;; Line number mode
@@ -46,15 +45,15 @@
 (require 'org)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 3.0))
 
-;;; LaTex Options
-(setq exec-path (append exec-path '("/Library/TeX/texbin")))
-(setenv "PATH" (concat (getenv "PATH") "/Library/TeX/texbin"))
-(setq TeX-auto-save t)
-(setq TeX-PDF-mode t)
-(setq TeX-parse-self t)
-(setq TeX-show-compilation t)
-(use-package latex-preview-pane)
-(latex-preview-pane-enable)
+;; ;;; LaTex Options
+;; (setq exec-path (append exec-path '("/Library/TeX/texbin")))
+;; (setenv "PATH" (concat (getenv "PATH") "/Library/TeX/texbin"))
+;; (setq TeX-auto-save t)
+;; (setq TeX-PDF-mode t)
+;; (setq TeX-parse-self t)
+;; (setq TeX-show-compilation t)
+;; (use-package latex-preview-pane)
+;; (latex-preview-pane-enable)
 
 ;;; Yasnippet
 (use-package yasnippet)
@@ -89,11 +88,6 @@
 ;;; ivy
 (use-package ivy)
 (ivy-mode 1)
-
-;;; Google-specific packages
-;;; (require 'google)
-;;; (require 'citc)
-
 
 ;;; Neotree
 (use-package neotree)
