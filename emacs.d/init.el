@@ -7,11 +7,9 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 (require 'package)
-
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")))
-
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -39,7 +37,6 @@
 (exec-path-from-shell-initialize)
 ;;; Flycheck install
 (use-package flycheck)
-(global-flycheck-mode)
 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 
 ;;; Line number mode
@@ -66,7 +63,6 @@
 (setq TeX-show-compilation t)
 (use-package latex-preview-pane)
 (latex-preview-pane-enable)
-
 ;;; Yasnippet
 (use-package yasnippet)
 (yas-global-mode 1)
@@ -101,11 +97,6 @@
 ;;; ivy
 (use-package ivy)
 (ivy-mode 1)
-
-;;; Google-specific packages
-;;; (require 'google)
-;;; (require 'citc)
-
 
 ;;; Neotree
 (use-package neotree)
