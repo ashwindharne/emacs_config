@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: exponent
+# key: td
+# --
+^{$1}$0

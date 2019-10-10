@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: proof
+# key: proof
+# --
+\begin{proof}
+    ${1:proof}
+\end{proof}
+$0

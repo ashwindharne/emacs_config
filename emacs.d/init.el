@@ -7,8 +7,11 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 (require 'package)
-(add-to-list 'package-archives
-     '("melpa" . "http://melpa.org/packages/") t)
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")
+                         ("org" . "http://orgmode.org/elpa/")))
+
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -24,6 +27,8 @@
 		    :family "Source Code Pro"
 		    :weight 'normal
 		    :width 'normal)
+(setq-default cursor-type 'bar)
+(set-cursor-color "#09FF00")
 
 ;;; Disable menu, scroll, toolbar
 (menu-bar-mode -1)
@@ -47,8 +52,14 @@
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 3.0))
 
 ;;; LaTex Options
-(setq exec-path (append exec-path '("/Library/TeX/texbin")))
-(setenv "PATH" (concat (getenv "PATH") "/Library/TeX/texbin"))
+(cond
+ ((eq system-type "darwin") (setq exec-path (append exec-path '("/Library/TeX/texbin"))))
+ ((eq system-type "gnu/linux") (setq exec-path (append exec-path '("/usr/local/texlive/2018/bin"))))
+ )
+(cond
+ ((eq system-type "darwin") (setq exec-path (setenv "PATH" (concat (getenv "PATH") "/Library/TeX/texbin"))))
+ ((eq system-type "gnu/linux") (setq exec-path (setenv "PATH" (concat (getenv "PATH") "/usr/local/texlive/2018/bin"))))
+ )
 (setq TeX-auto-save t)
 (setq TeX-PDF-mode t)
 (setq TeX-parse-self t)
@@ -61,6 +72,7 @@
 (yas-global-mode 1)
 (setq yas-triggers-in-field t)
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+(add-to-list 'yas-key-syntaxes 'yas-shortest-key-until-whitespace)
 
 ;;; Markdown
 (use-package markdown-mode
@@ -106,6 +118,7 @@
 
 ;;; Ivy
 (use-package ivy)
+(use-package counsel)
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
@@ -113,4 +126,3 @@
 (global-set-key (kbd "C-c k") 'counsel-ag)
 (global-set-key (kbd "\C-s") 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
-
