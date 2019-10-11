@@ -1,0 +1,48 @@
+# -*- mode: snippet -*-
+# name: pset
+# key: pset
+# --
+\\usepackage{mathrsfs}
+\\usepackage{xcolor}
+\\usepackage{graphicx}
+\\usepackage{listings}
+\\usepackage{hyperref}
+\\usepackage{braket}
+
+\\newtheorem{theorem}{Theorem}[section]
+\\newtheorem*{lemma*}{Lemma}
+\\hypersetup{%
+colorlinks=true,
+linkcolor=blue,
+linkbordercolor={0 0 1}
+}
+
+\\setlength{\\parindent}{0.0in}
+\\setlength{\\parskip}{0.05in}
+
+\\newcommand{\\N}{\\mathbb{N}}
+\\newcommand{\\Z}{\\mathbb{Z}}
+\\newcommand{\\Q}{\\mathbb{Q}}
+\\newcommand{\\R}{\\mathbb{R}}
+
+\\newcommand\\course{${1: Course Number} \\\\ ${2: Course Name}}
+\\newcommand\\hwnumber{${3: HW Number}}
+\\newcommand\\NetIDa{${4: Date}}   
+\\newcommand\\NetIDb{${5: Student ID}}
+
+\\pagestyle{headandfoot}
+\\firstpageheadrule
+% \\runningheadrule 
+\\headheight 35pt
+% \\pagestyle{foot}
+\\lhead{\\NetIDa\\\\\\NetIDb}
+\\chead{\\textbf{\\Large Homework \\hwnumber}}
+\\rhead{\\course \\\\ \\today}
+\\lfoot{}
+\\cfoot{}
+\\rfoot{\\small\\thepage}
+\\headsep 1.5em
+
+\\begin{document}
+
+\\end{document}

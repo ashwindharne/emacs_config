@@ -7,13 +7,14 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 (require 'package)
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")))
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+(setq package-check-signature nil)
 
 (setq use-package-always-ensure t)
 
@@ -41,6 +42,12 @@
 
 ;;; Line number mode
 (global-linum-mode)
+(defadvice linum-mode (around my-linum-mode-turn-on-maybe)
+  (unless (memq major-mode
+		(list 'elisp-mode 'tex-mode))
+    ad-do-it))
+(ad-activate 'linum-mode)
+
 ;;; Fringe color to background color, provides separator between code and line numbers
 (set-face-attribute 'fringe nil :background nil)
 
@@ -48,7 +55,16 @@
 (require 'org)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 3.0))
 
+;;; PDF Tools
+(use-package tablist)
+(use-package pdf-tools)
+(pdf-loader-install)
+
+
+
 ;;; LaTex Options
+(use-package auctex
+  :defer t)
 (cond
  ((eq system-type "darwin") (setq exec-path (append exec-path '("/Library/TeX/texbin"))))
  ((eq system-type "gnu/linux") (setq exec-path (append exec-path '("/usr/local/texlive/2018/bin"))))
@@ -60,9 +76,20 @@
 (setq TeX-auto-save t)
 (setq TeX-PDF-mode t)
 (setq TeX-parse-self t)
-(setq TeX-show-compilation t)
-(use-package latex-preview-pane)
-(latex-preview-pane-enable)
+;; Use pdf-tools to open PDF files
+(setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+      TeX-source-correlate-start-server t)
+
+;; Update PDF buffers after successful LaTeX runs
+(add-hook 'TeX-after-compilation-finished-functions
+	  #'TeX-revert-document-buffer)
+
+(setq TeX-show-compilation nil)
+(setq TeX-save-query nil)
+(setq Tex-source-correlate-mode t)
+
+
+
 ;;; Yasnippet
 (use-package yasnippet)
 (yas-global-mode 1)
