@@ -26,3 +26,8 @@ autoload -Uz _zplugin
 ### End of Zplugin's installer chunk
 
 source ~/.zsh-config/zplugin-init.zsh
+alias mnt-lnxsrv='sshfs dharne@lnxsrv09.seas.ucla.edu:/u/cs/ugrad/dharne/ ~/Desktop/seasnet/ -o auto_cache,reconnect,defer_permissions,noappledouble,volname=lnxsrv'
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export PATH=/usr/local/texlive/2018basic/bin/x86_64-darwin:$PATH
