@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# contributor: Ashwin Dharne <ashwindharne@gmail.com>
+# name: centered_table
+# key: ctable
+# --
+\begin{table}[htbp]
+  \centering
+  \begin{tabular} {${3:format}}
+    $0
+  \end{tabular}
+  \caption{${1:caption}}
+\end{table}

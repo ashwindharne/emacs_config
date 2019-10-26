@@ -7,12 +7,14 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 (require 'package)
-(add-to-list 'package-archives
-     '("melpa" . "http://melpa.org/packages/") t)
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")
+                         ("org" . "http://orgmode.org/elpa/")))
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+(setq package-check-signature nil)
 
 (setq use-package-always-ensure t)
 
@@ -24,6 +26,8 @@
 		    :family "Source Code Pro"
 		    :weight 'normal
 		    :width 'normal)
+(setq-default cursor-type 'bar)
+(set-cursor-color "#09FF00")
 
 ;;; Disable menu, scroll, toolbar
 (menu-bar-mode -1)
@@ -34,11 +38,16 @@
 (exec-path-from-shell-initialize)
 ;;; Flycheck install
 (use-package flycheck)
-(global-flycheck-mode)
 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 
 ;;; Line number mode
 (global-linum-mode)
+(defadvice linum-mode (around my-linum-mode-turn-on-maybe)
+  (unless (memq major-mode
+		(list 'elisp-mode 'tex-mode))
+    ad-do-it))
+(ad-activate 'linum-mode)
+
 ;;; Fringe color to background color, provides separator between code and line numbers
 (set-face-attribute 'fringe nil :background nil)
 
@@ -46,21 +55,47 @@
 (require 'org)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 3.0))
 
+;;; PDF Tools
+(use-package tablist)
+(use-package pdf-tools)
+(pdf-loader-install)
+
+
+
 ;;; LaTex Options
-(setq exec-path (append exec-path '("/Library/TeX/texbin")))
-(setenv "PATH" (concat (getenv "PATH") "/Library/TeX/texbin"))
+(use-package auctex
+  :defer t)
+(cond
+ ((eq system-type "darwin") (setq exec-path (append exec-path '("/Library/TeX/texbin"))))
+ ((eq system-type "gnu/linux") (setq exec-path (append exec-path '("/usr/local/texlive/2018/bin"))))
+ )
+(cond
+ ((eq system-type "darwin") (setq exec-path (setenv "PATH" (concat (getenv "PATH") "/Library/TeX/texbin"))))
+ ((eq system-type "gnu/linux") (setq exec-path (setenv "PATH" (concat (getenv "PATH") "/usr/local/texlive/2018/bin"))))
+ )
 (setq TeX-auto-save t)
 (setq TeX-PDF-mode t)
 (setq TeX-parse-self t)
-(setq TeX-show-compilation t)
-(use-package latex-preview-pane)
-(latex-preview-pane-enable)
+;; Use pdf-tools to open PDF files
+(setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+      TeX-source-correlate-start-server t)
+
+;; Update PDF buffers after successful LaTeX runs
+(add-hook 'TeX-after-compilation-finished-functions
+	  #'TeX-revert-document-buffer)
+
+(setq TeX-show-compilation nil)
+(setq TeX-save-query nil)
+(setq Tex-source-correlate-mode t)
+
+
 
 ;;; Yasnippet
 (use-package yasnippet)
 (yas-global-mode 1)
 (setq yas-triggers-in-field t)
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+(add-to-list 'yas-key-syntaxes 'yas-shortest-key-until-whitespace)
 
 ;;; Markdown
 (use-package markdown-mode
@@ -90,11 +125,6 @@
 (use-package ivy)
 (ivy-mode 1)
 
-;;; Google-specific packages
-;;; (require 'google)
-;;; (require 'citc)
-
-
 ;;; Neotree
 (use-package neotree)
 (global-set-key [f8] 'neotree-toggle)
@@ -106,6 +136,7 @@
 
 ;;; Ivy
 (use-package ivy)
+(use-package counsel)
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
@@ -113,4 +144,3 @@
 (global-set-key (kbd "C-c k") 'counsel-ag)
 (global-set-key (kbd "\C-s") 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
-
