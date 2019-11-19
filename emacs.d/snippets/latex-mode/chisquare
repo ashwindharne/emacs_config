@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: chisquare
+# key: chisq
+# --
+\chi^{2}_{$1} $0

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: innerproduct
+# key: ip
+# --
+\left<$1\right>$0

@@ -7,7 +7,7 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 (require 'package)
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+(setq package-archives '(("gnu" . "http://mirrors.163.com/elpa/gnu/")
                          ("melpa" . "https://melpa.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")))
 
@@ -66,16 +66,17 @@
 (use-package auctex
   :defer t)
 (cond
- ((eq system-type "darwin") (setq exec-path (append exec-path '("/Library/TeX/texbin"))))
+ ((eq system-type "darwin") (setq exec-path (append exec-path '("/usr/local/texlive/2019/bin"))))
  ((eq system-type "gnu/linux") (setq exec-path (append exec-path '("/usr/local/texlive/2018/bin"))))
  )
 (cond
- ((eq system-type "darwin") (setq exec-path (setenv "PATH" (concat (getenv "PATH") "/Library/TeX/texbin"))))
+ ((eq system-type "darwin") (setq exec-path (setenv "PATH" (concat (getenv "PATH") "/usr/local/texlive/2019/bin"))))
  ((eq system-type "gnu/linux") (setq exec-path (setenv "PATH" (concat (getenv "PATH") "/usr/local/texlive/2018/bin"))))
  )
 (setq TeX-auto-save t)
 (setq TeX-PDF-mode t)
 (setq TeX-parse-self t)
+
 ;; Use pdf-tools to open PDF files
 (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
       TeX-source-correlate-start-server t)
@@ -107,7 +108,6 @@
   :init (setq markdown-command "pandoc"))
 
 (electric-pair-mode 1)
-(use-package magit)
 
 ;;; Haskell
 (use-package haskell-mode)
@@ -144,3 +144,13 @@
 (global-set-key (kbd "C-c k") 'counsel-ag)
 (global-set-key (kbd "\C-s") 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
+
+(delete-selection-mode 1)
+
+(use-package company
+  :ensure t
+  :config
+  (progn
+    (add-hook 'after-init-hook 'global-company-mode)))
+
+

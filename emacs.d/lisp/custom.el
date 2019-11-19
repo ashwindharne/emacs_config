@@ -18,7 +18,7 @@
  '(flycheck-python-pycompile-executable "python3")
  '(package-selected-packages
    (quote
-    (pdf-tools tablist counsel button-lock ibuffer-sidebar smart-mode-line ag ivy neotree sr-speedbar fixmee flycheck flycheck-rust rust-mode exec-path-from-shell flycheck-haskell haskell-mode sublimity electric-pair magit yasnippet-snippets yasnippet latex-preview-pane auctex))))
+    (company auctex-latexmk pdf-tools tablist counsel button-lock ibuffer-sidebar smart-mode-line ag ivy neotree sr-speedbar fixmee flycheck flycheck-rust rust-mode exec-path-from-shell flycheck-haskell haskell-mode sublimity electric-pair magit yasnippet-snippets yasnippet latex-preview-pane auctex))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
